@@ -13,7 +13,7 @@ Claude Solo PM simplifies the development workflow for solo developers building 
 2. /prd-new           → Create PRD with in-depth interview
 3. /task-create       → Create one task at a time from PRD
 4. /task-start        → Start task (git branch + plan mode)
-5. /code-review       → Review code with analyzer agent
+5. (code-review)      → Review code with plugin (see Plugins section)
 6. /task-close        → Close task, push, create PR
 7. /context-update    → Update project context
 ```
@@ -26,7 +26,6 @@ Claude Solo PM simplifies the development workflow for solo developers building 
 | `/prd-new <name> [spec_file]` | Create PRD with interview process |
 | `/task-create <feature> <description>` | Create a single task from PRD |
 | `/task-start <feature> <number>` | Start task with planning workflow |
-| `/code-review <feature> <number>` | Review code changes |
 | `/task-close <feature> <number>` | Close task, push, create PR |
 
 ### Refactoring
@@ -47,7 +46,6 @@ Claude Solo PM simplifies the development workflow for solo developers building 
 | Agent | Purpose |
 |-------|---------|
 | `plan-reviewer` | Reviews implementation plans before execution |
-| `code-analyzer` | Analyzes code for bugs and issues |
 | `refactor-planner` | Creates comprehensive refactoring plans |
 
 ## Skills
@@ -63,16 +61,58 @@ Claude Solo PM simplifies the development workflow for solo developers building 
 | `datetime` | Standardized datetime handling |
 | `frontmatter-operations` | YAML frontmatter patterns |
 
+## Plugins (Recommended)
+
+This system works well with official Claude Code plugins. Install them using the `/plugin` command or load locally.
+
+### Installing Plugins
+
+```bash
+# Interactive installation
+/plugin install
+
+# Or load locally for testing
+claude --plugin-dir /path/to/plugin
+```
+
+### Recommended Plugins
+
+| Plugin | Description | Install |
+|--------|-------------|---------|
+| **[code-review](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-review)** | Automated code review on PRs using multiple specialized agents (compliance, bug detection, history analysis) | Essential for code quality |
+| **[commit-commands](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/commit-commands)** | Smart commit message generation and git workflow commands | Streamlines git operations |
+| **[ralph-loop](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/ralph-loop)** | Continuous improvement loop for iterative development | Great for refinement cycles |
+| **[frontend-design](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/frontend-design)** | UI/UX design assistance and frontend development patterns | Useful for web/app development |
+| **[feature-dev](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/feature-dev)** | Full feature development workflow with planning and implementation | Alternative to this PM system |
+
+### Plugin Configuration
+
+Plugins are configured in settings files:
+
+```
+~/.claude/settings.json              # User-level (all projects)
+<project>/.claude/settings.json      # Project-level (shared)
+<project>/.claude/settings.local.json # Local override (not committed)
+```
+
+Example configuration:
+```json
+{
+  "enabledPlugins": {
+    "code-review@anthropic-agent-plugins": true,
+    "commit-commands@anthropic-agent-plugins": true
+  }
+}
+```
+
 ## Folder Structure
 
 ```
 .claude/
 ├── agents/
-│   ├── code-analyzer.md
 │   ├── plan-reviewer.md
 │   └── refactor-planner.md
 ├── commands/
-│   ├── code-review.md
 │   ├── context-create.md
 │   ├── context-fetch.md
 │   ├── context-prime.md
@@ -103,12 +143,14 @@ Claude Solo PM simplifies the development workflow for solo developers building 
 
 2. Or copy the contents to your existing `.claude` folder.
 
+3. Install recommended plugins (see Plugins section above).
+
 ## Key Features
 
 - **Plan Before Implement**: Every task starts with a planning phase reviewed by the plan-reviewer agent
 - **Planning with Files**: Uses Manus-style `task_plan.md` for persistent progress tracking
 - **One Task at a Time**: Create tasks incrementally as the feature evolves
-- **Code Review Built-in**: Automated code analysis before closing tasks
+- **Plugin Integration**: Works seamlessly with official Claude Code plugins
 - **Context Management**: Keep project context up-to-date for better AI assistance
 
 ## Acknowledgments
@@ -122,6 +164,8 @@ This project builds upon and is inspired by several excellent open-source projec
 - **[Planning with Files](https://github.com/OthmanAdi/planning-with-files)** by OthmanAdi - The Manus-style planning skill for persistent markdown-based progress tracking.
 
 - **Thariq ([@trq212](https://x.com/trq212))** - The interview method for PRD creation ([original post](https://x.com/trq212/status/2005315275026260309)).
+
+- **[Claude Plugins Official](https://github.com/anthropics/claude-plugins-official)** by Anthropic - Official plugins for code review, commit commands, and more.
 
 ## License
 

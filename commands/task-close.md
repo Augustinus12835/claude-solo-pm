@@ -42,8 +42,8 @@ Do not bother the user with preflight checks progress. Just do them and move on.
 - If on different branch, warn: "Not on expected branch. Current: {branch}, Expected: task/<feature>-<task_number>. Continue anyway?"
 
 ### 4. Check for Code Review
-- Ask user: "Has this task been code reviewed? (/code-review)"
-- If not reviewed, suggest: "Consider running /code-review <feature_name> <task_number> first"
+- Ask user: "Has this task been code reviewed?"
+- If not reviewed, suggest: "Consider using the code-review plugin first (see README for installation)"
 - Allow user to continue if they choose
 
 ## Instructions
@@ -115,7 +115,7 @@ gh pr create \
 <How this was tested>
 
 ## Checklist
-- [ ] Code reviewed with `/code-review`
+- [ ] Code reviewed
 - [ ] Tests pass
 - [ ] Documentation updated (if needed)
 
@@ -177,7 +177,7 @@ If any step fails:
 
 ## Important Notes
 
-- **Always code review first** - Run /code-review before closing
+- **Always code review first** - Use the code-review plugin before closing
 - **Commit everything** - Don't leave uncommitted changes
 - **Create PR** - PRs enable proper review workflow
 - **Update context** - Run /context-update after closing tasks
