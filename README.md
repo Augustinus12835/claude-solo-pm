@@ -109,6 +109,7 @@ Example configuration:
 
 ```
 .claude/
+├── allow_list.json    # Pre-approved permissions
 ├── agents/
 │   ├── plan-reviewer.md
 │   └── refactor-planner.md
@@ -144,6 +145,66 @@ Example configuration:
 2. Or copy the contents to your existing `.claude` folder.
 
 3. Install recommended plugins (see Plugins section above).
+
+4. Set up permissions (see Permissions section below).
+
+## Permissions
+
+This repo includes an `allow_list.json` that pre-approves common development commands, reducing permission prompts during development.
+
+### What's Included
+
+The allow list covers:
+
+| Category | Commands |
+|----------|----------|
+| **Package Managers** | npm, yarn, pnpm, bun, pip, cargo |
+| **Build Tools** | node, python, go, rustc, make, cmake, mvn, gradle |
+| **Testing** | jest, vitest, pytest, mocha, playwright, cypress |
+| **Linting** | eslint, prettier, black, flake8, mypy, tsc |
+| **Git & VCS** | git, gh, hg, svn |
+| **File Operations** | ls, cat, grep, find, mkdir, cp, mv |
+| **Docker/K8s** | docker, docker-compose, kubectl, helm |
+| **Databases** | sqlite3, psql, mysql, redis-cli, mongo |
+| **Web Fetch** | github.com, docs.*, stackoverflow.com, MDN |
+| **MCP Tools** | All MCP tools (mcp__*) |
+
+### Setup
+
+**Option 1: Copy to your project**
+
+The `allow_list.json` is included in this repo. After cloning, it will be in your `.claude/` folder.
+
+**Option 2: Copy to user-level config**
+
+For permissions across all projects:
+```bash
+cp .claude/allow_list.json ~/.claude/
+```
+
+**Option 3: Merge with existing settings**
+
+If you have existing settings, merge the `permissions` object into your `settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Bash(git:*)",
+      "Bash(npm:*)",
+      // ... see allow_list.json for full list
+    ],
+    "deny": []
+  }
+}
+```
+
+### Security Note
+
+This allow list is designed for solo development on trusted projects. Review the permissions and adjust based on your security requirements. You can:
+- Remove categories you don't use
+- Add project-specific commands
+- Use the `deny` array to block specific commands
 
 ## Key Features
 
