@@ -1,0 +1,25 @@
+# Project-specific files (don't commit actual project data)
+context/*.md
+prds/*.md
+tasks/*/*.md
+
+# Keep the directories but not their contents
+!context/.gitkeep
+!prds/.gitkeep
+!tasks/.gitkeep
+!tasks/refactor/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+task_plan.md
+notes.md
