@@ -98,7 +98,7 @@ Claude Solo PM simplifies the development workflow for solo developers building 
 
 1. Clone this repo into your project's `.claude` folder:
    ```bash
-   git clone https://github.com/yourusername/claude-solo-pm.git .claude
+   git clone https://github.com/Augustinus12835/claude-solo-pm.git .claude
    ```
 
 2. Or copy the contents to your existing `.claude` folder.
